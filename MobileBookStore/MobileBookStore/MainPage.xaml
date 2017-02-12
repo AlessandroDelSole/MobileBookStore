@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:MobileBookStore"
+             x:Class="MobileBookStore.MainPage">
+
+
+  <Grid BindingContext="{Binding}">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="40"/>
+      <RowDefinition Height="30"/>
+      <RowDefinition />
+      <RowDefinition Height="40" />
+    </Grid.RowDefinitions>
+
+    <Label Text="Welcome to the client Book Store application" FontSize="Large" Margin="5"/>
+
+    <ActivityIndicator x:Name="Indicator1" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Grid.Row="1"/>
+    
+    <ListView HasUnevenRows="True" ItemsSource="{Binding Books}" x:Name="BooksListView" Grid.Row="2"
+              SelectedItem="{Binding SelectedBook}" >
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <ViewCell>
+            <ViewCell.View>
+              <Frame OutlineColor="Blue">
+                <Grid>
+                  <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                  </Grid.RowDefinitions>
+                  <Entry Placeholder="Title" Text="{Binding Title}" Grid.Row="1"/>
+                  <Entry Placeholder="Author" Text="{Binding Author}" Grid.Row="2"/>
+                  <Entry Placeholder="ISBN" Text="{Binding ISBN}" Grid.Row="3"/>
+                  <DatePicker Date="{Binding PublicationDate, Mode=TwoWay}" Grid.Row="4"/>
+                </Grid>
+              </Frame>
+            </ViewCell.View>
+          </ViewCell>
+        </DataTemplate>        
+      </ListView.ItemTemplate>
+    </ListView> 
+
+    <StackLayout Grid.Row="3" Orientation="Horizontal" BindingContext="{Binding}">
+      <Button Text="Load" x:Name="LoadButton" Command="{Binding LoadBooks}"/>
+      <Button Text="Save" x:Name="SaveButton" Command="{Binding SaveBooks}"/>
+      <Button Text="Add" x:Name="AddButton" Command="{Binding AddNewBook}"/>
+      <Button Text="Delete" x:Name="DeleteButton" Command="{Binding DeleteBook}"/>
+    </StackLayout>
+  </Grid>
+  <ContentPage.Padding>
+    <OnPlatform x:TypeArguments="Thickness">
+      <OnPlatform.iOS>0,20,0,0</OnPlatform.iOS>
+    </OnPlatform>
+  </ContentPage.Padding>
+</ContentPage>
